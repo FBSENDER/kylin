@@ -1,6 +1,6 @@
 class Article < ActiveRecord::Base
-  self.table_name = 'ppq_baikes'
+  has_one :article_detail
 end
 class ArticleDetail < ActiveRecord::Base
-  self.table_name = 'ppq_baike_details'
+  belongs_to :article
 end

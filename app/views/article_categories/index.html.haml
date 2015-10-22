@@ -1,0 +1,4 @@
+%h1 请选择要编辑的类别
+- @categories.each do |category|
+  %p
+    = link_to category.category_name, "article_categories/#{category.id}"

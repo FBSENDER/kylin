@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  root 'article#tasks'
-  get 'article/edit/:id', to: 'article#edit'
-  post 'article/edit_finish', to: 'article#finish'
-  get 'article/token', to: 'article#token'
-  get 'article/upload', to: 'article#upload'
+  root 'articles#index'
+  get 'articles/token', to: 'articles#token'
+  resources :articles
+  resources :article_categories
 end

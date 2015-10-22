@@ -1,0 +1,20 @@
+%section.container
+  %h1= @article.article_name
+  
+  .row
+    = form_for @article do |f|
+      = fields_for @article.article_detail do |df|
+        = df.text_field :contents_json, id: 'article_json', class: 'hidden'
+      = f.submit '保存', id: 'btn_submit', class: 'btn btn-default disabled'
+  %hr
+  .row#add
+    %button#btn_add_h2.btn.btn-default 二级标题
+    %button#btn_add_h3.btn.btn-default 三级标题
+    %button#btn_add_p.btn.btn-default 段落
+    %button#btn_add_img.btn.btn-default 图片
+    %button#btn_save.btn.btn-default 保存
+    %button#upload_img.btn.btn-default 上传图片
+  %hr
+  .row
+    #preview.col-md-6
+    #operation.col-md-6
