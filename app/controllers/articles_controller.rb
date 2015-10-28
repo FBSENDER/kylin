@@ -6,6 +6,7 @@ class ArticlesController < ApplicationController
   def edit
     article_id = params[:id]
     @article = Article.where(id: article_id.to_i).take
+    @contents = JSON.parse(@article.article_detail.contents_json)
   end
   def update
     @article = Article.find(params[:id])

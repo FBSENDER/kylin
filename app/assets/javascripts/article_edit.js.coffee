@@ -3,12 +3,28 @@ $(document).ready( ->
   window.h3_index = 0
   window.p_index = 0
   window.img_index = 0
+  window.a_index = 0
+  window.ul_index = 0
   
   window.txt_change = (obj)->
     type = $(obj).data('mktype')
     id = $(obj).data('id')
     $('#'+type+'_pre_'+id).html($(obj).val())
-  
+
+  window.a_text_change = (obj)->
+    id = $(obj).data('id')
+    data = $(obj).val().split("|")
+    $('#a_pre_'+id).html(data[1])
+    $('#a_pre_'+id).attr("href",data[0])
+
+  window.ul_text_change = (obj)->
+    id = $(obj).data('id')
+    data = $(obj).val().split("|")
+    $('#ul_pre_'+id).children('li').each ->
+      this.remove()
+    $.each(data, ->
+      $('#ul_pre_'+id).append('<li>'+this+'</li>') 
+    )
   window.remove_item = (obj) ->
     type = $(obj).data('mktype')
     id = $(obj).data('id')
@@ -44,4 +60,12 @@ $(document).ready( ->
     $('#preview').append('<div><img src="#" alt="图片" id="img_pre_'+img_index+'"/></div>')
     $('#operation').append('<div><input type="text" id="img_op_'+img_index+'" placeholder="图片url" data-id="'+img_index+'" data-mktype="img"><button class="btn btn-defalut" onclick="remove_item(this);" data-id="'+img_index+'" data-mktype="img" id="img_btn_'+img_index+'">删除改行</button></div>')
     img_index += 1
+  $('#btn_add_a').click ->
+    $('#preview').append('<div><a href="#" id="a_pre_'+a_index+'" target="_blank">链接</a></div>')
+    $('#operation').append('<div><input type="text" id="a_op_'+a_index+'" placeholder="网址|文本" data-id="'+a_index+'" data-mktype="a" onchange="a_text_change(this);"><button class="btn btn-default" onclick="remove_item(this);" data-id="'+a_index+'" data-mktype="a" id="a_btn_'+a_index+'">删除该行</button></div>')
+    a_index += 1
+  $('#btn_add_ul').click ->
+    $('#preview').append('<div><ul id="ul_pre_'+ul_index+'"><li>列表</li></ul><div>')
+    $('#operation').append('<div><input type="text" id="ul_op_'+ul_index+'" placeholder="列表内容（用 | 分割）" data-id="'+ul_index+'" data-mktype="ul" onchange="ul_text_change(this);"><button class="btn btn-default" onclick="remove_item(this);" data-id="'+ul_index+'" data-mktype="ul" id="ul_btn_'+ul_index+'">删除该行</button></div>')
+    ul_index += 1
 )
